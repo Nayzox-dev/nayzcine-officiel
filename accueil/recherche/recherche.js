@@ -74,7 +74,7 @@ let activeFilters = {
 };
 
 // === Flag d’affichage des IDs TMDB ===
-let displayId = true;
+let displayId = false;
 
 // === Utilitaires cookies ===
 function getCookie(name) {
