@@ -1,0 +1,236 @@
+/* navbar.css */
+
+/* ── Couleurs & Variables ── */
+:root {
+  --color-red: #dc2626;
+  --color-red-hover: #b91c1c;
+  --color-white: #ffffff;
+  --color-bg-nav: rgba(31, 41, 55, 0.9);
+  --color-bg-search: rgba(55, 65, 81, 0.6);
+  --color-bg-search-hover: rgba(55, 65, 81, 0.8);
+  --premium-gradient: linear-gradient(135deg, #444857, #2c2f38);
+  --blur-radius: 12px;
+  --hover-bg-light: rgba(255, 255, 255, 0.15);
+  --text-glow: rgba(255, 255, 255, 0.8);
+  --glow-red: rgba(220, 38, 38, 0.6);
+}
+
+/* ── Reset global ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── Base ── */
+body.rb {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* ── Navbar fixée ── */
+.hd {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  padding: 0 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  z-index: 999;
+}
+
+/* ── Ombre dégradée derrière la navbar ── */
+.shadow-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, rgba(0,0,0,1), transparent);
+  pointer-events: none;
+  z-index: 998;
+}
+
+/* ── Logo du site ── */
+.logo {
+  font-size: 2.75rem;
+  font-weight: 900;
+  color: var(--color-red);
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 10px var(--color-red);
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* ── Liens de navigation ── */
+.nav {
+  display: flex;
+  gap: 2.5rem;
+  font-size: 1.25rem;
+}
+.nav a {
+  color: var(--color-white);
+  text-decoration: none;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+.nav a:hover {
+  color: var(--color-red);
+  text-shadow: 0 0 6px var(--color-red);
+}
+
+/* ── Zone d’actions (recherche, avatar, connexion) ── */
+.act {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* ── Bouton Recherche ── */
+.btn-search {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  background: var(--color-bg-search);
+  color: var(--color-white);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.btn-search:hover {
+  background: var(--color-bg-search-hover);
+}
+
+/* ── Bouton Connexion ── */
+.btn-login {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: var(--premium-gradient);
+  color: var(--color-white);
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.btn-login:hover {
+  background: var(--color-red-hover);
+  box-shadow: 0 4px 12px var(--text-glow);
+}
+
+/* ── Avatar de compte ── */
+.account-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-red);
+  color: var(--color-white);
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 6px rgba(0,0,0,0.4);
+}
+.account-logo:hover {
+  background: var(--color-red-hover);
+  transform: scale(1.15);
+  box-shadow: 0 0 12px var(--glow-red);
+}
+
+/* ── Utility ── */
+.hidden {
+  display: none !important;
+}
+
+/* ── Animation pop‑in pour le menu ── */
+@keyframes popin {
+  0%   { opacity: 0; transform: scale(0.4) translateY(-30px); }
+  70%  { opacity: 1; transform: scale(1.05) translateY(8px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Menu de compte ── */
+.account-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 240px;
+  background: var(--color-bg-nav);
+  backdrop-filter: blur(var(--blur-radius));
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+  overflow: hidden;
+  z-index: 1000;
+  opacity: 0;
+  transform: scale(0.4) translateY(-30px);
+  transform-origin: top right;
+  pointer-events: none;
+}
+.account-menu.show {
+  animation: popin 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+  pointer-events: auto;
+}
+
+/* ── Items du menu ── */
+.account-menu ul { list-style: none; }
+.account-menu li { border-bottom: 1px solid rgba(255,255,255,0.1); }
+.account-menu li:last-child { border-bottom: none; }
+
+/* ── Liens & Boutons du menu ── */
+.menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+  padding: 0.85rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-white);
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+.menu-item span {
+  transition: text-shadow 0.25s ease;
+}
+.menu-item:hover {
+  background: var(--hover-bg-light);
+}
+.menu-item:hover span {
+  text-shadow: 0 0 4px var(--text-glow);
+}
+
+/* ── Override pour déconnecter: glow rouge ── */
+#logout-button:hover span {
+  text-shadow: 0 0 4px var(--glow-red);
+}
+
+/* ── Icônes du menu ── */
+.menu-icon {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* ── Spécifique Déconnexion ── */
+#logout-button {
+  color: var(--color-red);
+}
