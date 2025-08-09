@@ -1,0 +1,190 @@
+/* watchlist.css */
+
+/* === Global & Cinematic Background === */
+.rb {
+  font-family: 'Roboto', sans-serif;
+  background-color: #0a0a0a;
+  background-image:
+    radial-gradient(circle at 15% 30%, rgba(97, 0, 0, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(220, 20, 60, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(110, 22, 22, 0.12) 0%, transparent 50%),
+    url('https://cinepulse.to/assets/pipes-D68q0iVI.svg');
+  background-size: cover;
+  background-attachment: fixed;
+  color: #f0f0f0;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+.rb::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === Main Container === */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 1300px;
+  margin: 100px auto 40px;  /* espace sous navbar */
+  padding: 60px 40px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+}
+
+/* === Page Title === */
+.watch-h1 h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  border-bottom: 3px solid #e50914;
+  display: inline-block;
+  padding-bottom: 10px;
+  margin-bottom: 40px;
+}
+
+/* === Empty State Message === */
+#watchlist-container p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-bottom: 20px;
+  color: #ddd;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+}
+
+/* === Grid Layout === */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+  gap: 32px;
+  margin-top: 30px;
+  padding-bottom: 30px;
+}
+
+/* === Card Wrapper (text stays fixed on hover) === */
+.card-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* === Poster + Gradient Overlay === */
+.card-film {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  perspective: 1000px;
+  background: #111;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.card-film::after {
+  content: '';
+  position: absolute;
+  top: -8px; left: -8px; right: -8px; bottom: -8px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 60%,
+    rgba(0,0,0,0.9) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+.card-film img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+  backface-visibility: hidden;
+  filter: brightness(0.85) contrast(1.2) saturate(1.2);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+/* === Badge Styles: pill shape === */
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 9999px;  /* pill shape */
+  z-index: 2;
+  color: #fff;
+}
+.badge.film {
+  background: #e50914;
+}
+.badge.serie {
+  background: #007bff;
+}
+
+/* === Hover Effects on Poster Only === */
+.card-film:hover {
+  transform: translateY(-4px) scale(1.005) rotateY(5deg);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.37),
+    0 0 20px rgba(229,9,20,0.6);
+}
+.card-film:hover img {
+  transform: scale(1.05) rotateY(3deg);
+  filter: brightness(1) contrast(1.4) saturate(1.4);
+}
+
+/* === Details Under Poster === */
+.card-details {
+  margin-top: 12px;
+  padding: 0 6px;
+}
+.card-details h3 {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+.card-details p {
+  margin: 6px 0 0;
+  font-size: 0.875rem;
+  color: #ccc;
+}
+/* highlight title on hover of poster */
+.card-film:hover + .card-details h3,
+.card-item:hover .card-details h3 {
+  color: #e50914;
+}
+
+@media (max-width: 900px) {
+    .watch-h1 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 750px) {
+  .watch-h1 h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 550px) {
+  .watch-h1 h1 {
+    font-size: 1.7rem;
+    text-align: center;
+  }
+}
