@@ -1,0 +1,82 @@
+:root {
+  --red: #e50914;
+  --red-hover: #bf0811;
+  --text-muted: #ccc;
+  --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0a0a0a;
+  background-image:
+    radial-gradient(circle at 15% 30%, rgba(97, 0, 0, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(220, 20, 60, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(110, 22, 22, 0.12) 0%, transparent 50%),
+    url('https://cinepulse.to/assets/pipes-D68q0iVI.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  font-family: var(--font);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem 4rem;
+  overflow-x: hidden;
+}
+
+.box {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
+
+.emoji {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.btn-retour {
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: inline-block;
+}
+
+.btn-retour:hover {
+  background: var(--red-hover);
+}
+

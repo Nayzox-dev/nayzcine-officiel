@@ -1,0 +1,243 @@
+body {
+  background-color: #1a100b;
+  color: #eee;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 100px 20px;
+}
+
+.left-column {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-pic img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.info-block {
+  background-color: #2b1d16;
+  padding: 20px;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.info-block h3 {
+  color: #cc3b2f;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.info-section {
+  margin-bottom: 16px;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #e45c4e;
+  font-size: 0.95rem;
+}
+
+.info-section span {
+  display: block;
+  color: #eee;
+  margin-top: 2px;
+  font-size: 0.9rem;
+}
+
+.content {
+  flex: 1;
+  margin-left: 50px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.biography-title,
+.filmography-title {
+  color: #cc3b2f;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+p {
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.toggle-button {
+  margin: 10px 0 20px;
+  background-color: #43322a;
+  border: none;
+  color: #eee;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.timeline {
+  border-left: 2px solid #551e0a;
+  padding-left: 20px;
+}
+
+.timeline-year {
+  position: relative;
+  margin-bottom: 30px;
+  padding-left: 25px;
+  color: #ccc;
+}
+
+.timeline-year:before {
+  content: "";
+  position: absolute;
+  left: -11px;
+  top: 9px;
+  width: 12px;
+  height: 12px;
+  background-color: #bb4a3d;
+  border-radius: 50%;
+}
+
+.timeline-credits {
+  background-color: #2b1d16;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-top: 8px;
+  color: #999;
+}
+
+.timeline-credits strong {
+  color: #eee;
+  display: block;
+  font-weight: 700;
+}
+
+.role {
+  font-style: italic;
+  color: #be6a65;
+}
+
+.btn-watch {
+  float: right;
+  background-color: #43322a;
+  border: none;
+  color: #eee;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.btn-watch:hover {
+  background-color: #bb4a3d;
+}
+
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+    padding: 60px 20px;
+    gap: 40px;
+  }
+
+  .left-column {
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .profile-pic img {
+    width: 120px;
+  }
+
+  .info-block {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .content {
+    margin-left: 0;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .timeline-credits {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .left-column {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-pic img {
+    width: 100%;
+    margin-top: 24px; /* ✅ marge ajoutée ici */
+  }
+
+  .timeline-credits {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .timeline-year {
+    padding-left: 20px;
+  }
+
+  .timeline-year::before {
+    left: -10px;
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 40px 12px;
+  }
+
+  .timeline-credits {
+    font-size: 0.75rem;
+    padding: 6px;
+  }
+
+  .btn-watch {
+    display: block;
+    float: none;
+    margin: 6px 0 0;
+    font-size: 0.75rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  .biography-title,
+  .filmography-title {
+    font-size: 1rem;
+  }
+}

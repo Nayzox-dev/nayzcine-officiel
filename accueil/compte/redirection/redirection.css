@@ -1,0 +1,146 @@
+body {
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #15181e 0%, #242733 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin: 0;
+  overflow: hidden;
+}
+.card {
+  background: rgba(36, 39, 51, 0.92);
+  border-radius: 2.2rem;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.29);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  padding: 2.8rem 2.4rem 2.6rem 2.4rem;
+  max-width: 430px;
+  width: 95vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: -34px; left: -38px;
+  width: 120px; height: 120px;
+  background: linear-gradient(120deg, #ff194a99, transparent 70%);
+  filter: blur(24px);
+  z-index: -1;
+  border-radius: 50%;
+  animation: float1 7s ease-in-out infinite alternate;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: -30px; right: -32px;
+  width: 90px; height: 90px;
+  background: linear-gradient(20deg, #fff2, transparent 60%);
+  filter: blur(18px);
+  z-index: -1;
+  border-radius: 50%;
+  animation: float2 5.2s ease-in-out infinite alternate;
+}
+@keyframes float1 { to { transform: translateY(23px) scale(1.08);} }
+@keyframes float2 { to { transform: translateY(-13px) scale(1.04);} }
+
+.checkmark {
+  display: inline-block;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(120deg, #ff194a 80%, #ff4769 100%);
+  margin-bottom: 1.5rem;
+  position: relative;
+  box-shadow: 0 0 24px #ff194a55;
+  opacity: 0;
+  transform: scale(0.8) rotate(-8deg);
+}
+.checkmark svg {
+  width: 34px;
+  height: 34px;
+  margin-top: 12px;
+  margin-left: 12px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 32;
+  stroke-dashoffset: 32;
+}
+
+.title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #ff194a;
+  letter-spacing: 2px;
+  margin-bottom: 0.2rem;
+  opacity: 0;
+  transform: translateY(-25px) scale(0.95);
+  text-shadow: 0 0 16px #ff194a33, 0 0 6px #fff1;
+}
+.pseudo {
+  font-size: 1.48rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.07rem;
+  opacity: 0;
+  transform: translateY(-15px) scale(0.98);
+  text-shadow: 0 0 8px #ff194a25;
+}
+.desc {
+  font-size: 1.12rem;
+  color: #bbb;
+  margin-bottom: 2.1rem;
+  opacity: 0;
+  transform: translateY(28px) scale(0.96);
+}
+
+.btn-accueil {
+  display: inline-block;
+  background: linear-gradient(90deg, #ff194a 60%, #ff4769 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.16rem;
+  padding: 1.08rem 2.6rem;
+  border-radius: 1.35rem;
+  box-shadow: 0 6px 22px #ff194a25, 0 0px 24px #ff194a14 inset;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1.2px;
+  outline: none;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  transition: background 0.18s, transform 0.13s, box-shadow 0.16s, letter-spacing 0.15s;
+  opacity: 0;
+  transform: scale(0.96);
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+.btn-accueil::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle, #fff8 0%, transparent 68%);
+  opacity: 0.11;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.btn-accueil:hover, .btn-accueil:focus {
+  background: linear-gradient(90deg, #e0143d 75%, #ff4769 100%);
+  transform: scale(1.045) rotate(-1deg);
+  box-shadow: 0 10px 36px #ff194a2e, 0 0 30px #ff194a34 inset;
+  letter-spacing: 1.8px;
+}
+.btn-accueil:active {
+  background: linear-gradient(90deg, #c30e33 85%, #ff4769 100%);
+  transform: scale(0.98);
+  box-shadow: 0 3px 10px #ff194a2e, 0 0 10px #ff194a34 inset;
+}
