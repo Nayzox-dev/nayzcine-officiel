@@ -13,12 +13,12 @@
 
 // ======= CONFIG =======
 const PROXY_BASE = 'https://api.nayzcine.fr/api/proxy?url=';
-const PROBE_TIMEOUT_MS = 7000;     // timeout par check de lien
+const PROBE_TIMEOUT_MS = 10000;     // timeout par check de lien
 const PROBE_PARALLEL   = 6;        // nb de checks en parallèle
 
 // Failover runtime (auto-switch)
-const STARTUP_TIMEOUT_MS = 9000;   // pas de démarrage -> switch
-const STALL_GRACE_MS     = 7000;   // plus de progression -> switch
+const STARTUP_TIMEOUT_MS = 10000;   // pas de démarrage -> switch
+const STALL_GRACE_MS     = 10000;   // plus de progression -> switch
 const MIN_PROGRESS_DELTA = 0.2;    // ~200ms de progression pour considérer "ça bouge"
 
 // ======= SOURCES =======
