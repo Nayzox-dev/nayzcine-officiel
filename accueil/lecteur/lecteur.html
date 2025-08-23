@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lecteur Vidéo Plein Écran – Stylisé</title>
+  <link rel="stylesheet" href="/accueil/lecteur/lecteur.css" />
+</head>
+<body>
+
+  <!-- SVG SYMBOLS POUR LES ICÔNES -->
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-play" viewBox="0 0 16 16">
+      <polygon points="3,2 13,8 3,14"/>
+    </symbol>
+    <symbol id="icon-pause" viewBox="0 0 16 16">
+      <rect x="3" y="2" width="3" height="12"/>
+      <rect x="10" y="2" width="3" height="12"/>
+    </symbol>
+    <symbol id="icon-fullscreen" viewBox="0 0 16 16">
+      <path d="M1 1h5v2H3v3H1V1zm10 0h5v5h-2V3h-3V1zm5 10v5h-5v-2h3v-3h2zm-10 5H1v-5h2v3h3v2z"/>
+    </symbol>
+  </svg>
+
+  <!-- ... au même endroit dans <body> ... -->
+
+  <div class="video-container">
+    <!-- Bouton retour -->
+    <button class="go-back" title="Retourner à la page précédente">
+      <span class="go-back-icon">&lt;</span>
+      <span class="go-back-text">Retourner sur l'affiche</span>
+    </button>
+
+    <!-- Élément vidéo -->
+    <video id="video" preload="metadata" crossorigin="anonymous">
+      Votre navigateur ne supporte pas HTML5 Video.
+    </video>
+
+    <!-- Overlay play -->
+    <div class="pause-overlay">
+      <svg class="pause-icon" viewBox="0 0 16 16">
+        <use xlink:href="#icon-play"/>
+      </svg>
+    </div>
+
+    <!-- ✅ Titre du film/série juste au-dessus des contrôles -->
+    <div id="film-title" class="film-title"></div>
+
+    <!-- Barre de progression -->
+    <div class="progress-container" id="progressContainer">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <!-- Barre de contrôles -->
+    <div class="control-bar">
+      <div class="left-controls">
+        <button id="playPause" class="control-btn" title="Lecture/Pause">
+          <svg class="icon"><use xlink:href="#icon-play"/></svg>
+        </button>
+        <div id="timeDisplay" class="time-display">00:00:00 / 00:00:00</div>
+      </div>
+      <div class="right-controls">
+        <!-- Résolutions -->
+        <div class="resolution-selector">
+          <span class="text-btn" id="resolutionBtn">1080p</span>
+          <ul class="resolution-menu" id="resolutionMenu">
+            <li data-res="360p">360p</li>
+            <li data-res="480p">480p</li>
+            <li data-res="720p">720p</li>
+            <li data-res="1080p">1080p</li>
+            <li data-res="4k">4k</li>
+          </ul>
+        </div>
+        <!-- Bouton plein écran -->
+        <button id="fullscreenBtn" class="control-btn" title="Plein écran">
+          <svg class="icon"><use xlink:href="#icon-fullscreen"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading-popup">
+    <div class="loading-box">
+      <p>Chargement...</p>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script principal du lecteur -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="/accueil/lecteur/lecteur.js" defer></script>
+  <script src="/accueil/compte/verif-compte/verif-compte.js"></script>
+  
+</body>
+</html>

@@ -1,0 +1,572 @@
+/* === Global === */
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: #0a0a0a;
+  color: #f0f0f0;
+  overflow-x: hidden;
+}
+
+h1, h2 {
+  margin: 20px 0;
+}
+
+/* === Fond flou dynamique === */
+.bg-blur {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(35px) brightness(0.3);
+  z-index: -1;
+}
+
+/* === Mise en page principale === */
+.film-layout {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  padding: 80px 60px;
+  max-width: 1400px;
+  margin: 50px auto 0;
+}
+
+/* === Affiche === */
+.poster-wrap {
+  flex-shrink: 0;
+}
+.poster {
+  width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  object-fit: cover;
+}
+
+/* === Infos film === */
+.info-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  backdrop-filter: blur(3px);
+  transition: background 0.3s ease;
+}
+.tag:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.overview {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 15px 0 30px;
+  max-width: 90%;
+}
+
+/* === Actions === */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.btn-play {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.btn-play:hover {
+  background: #b00610;
+}
+
+/* === Watchlist button — même style en + ou - === */
+#btn-watchlist {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #f0f0f0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#btn-watchlist:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* === Tabs (contenu similaire / casting / bande annonce) === */
+.film-tabs {
+  display: flex;
+  gap: 16px;
+  margin: 0 60px 20px;
+}
+
+.tab {
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.tab.active {
+  background: white;
+  color: black;
+}
+
+.film-tab-content {
+  padding: 20px 60px;
+}
+
+/* === Grilles (films & acteurs) === */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.card-film, .card-actor {
+  background: #151515;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  color: white;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.card-film:hover, .card-actor:hover {
+  transform: scale(1.03);
+}
+
+.card-film img,
+.card-actor img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-film span,
+.card-actor span {
+  display: block;
+  padding: 10px;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+@media (max-width: 768px) {
+  .film-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 40px 20px;
+  }
+
+  .poster {
+    width: 220px;
+  }
+
+  .info-wrap {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .tags {
+    justify-content: center;
+  }
+
+  .overview {
+    font-size: 1rem;
+    max-width: 100%;
+    margin: 15px 0 20px;
+    padding: 0 10px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .btn-play,
+  #btn-watchlist {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+
+  .film-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+
+  .film-tab-content {
+    padding: 20px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .film-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 40px 20px;
+  }
+
+  .poster {
+    width: 220px;
+  }
+
+  .info-wrap {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .tags {
+    justify-content: center;
+  }
+
+  .overview {
+    font-size: 1rem;
+    max-width: 100%;
+    margin: 15px 0 20px;
+    padding: 0 10px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .btn-play,
+  #btn-watchlist {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+
+  .film-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+
+  .film-tab-content {
+    padding: 20px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .poster {
+    width: 160px;
+  }
+
+  .info-wrap h1 {
+    font-size: 1.5rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+
+  .overview {
+    font-size: 0.95rem;
+    padding: 0 6px;
+  }
+
+  .btn-play,
+  #btn-watchlist {
+    font-size: 0.95rem;
+    padding: 10px 18px;
+    max-width: 100%;
+  }
+
+  .film-tabs {
+    gap: 10px;
+    padding: 0;
+  }
+
+  .tab {
+    font-size: 0.85rem;
+    padding: 8px 14px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .card-film img,
+  .card-actor img {
+    height: 180px;
+  }
+
+  .card-film span,
+  .card-actor span {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .film-layout {
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    gap: 30px;
+  }
+
+  .poster {
+    width: 140px;
+  }
+
+  .info-wrap h1 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .tags {
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  .overview {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 10px 0 20px;
+    text-align: center;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .btn-play,
+  #btn-watchlist {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px 16px;
+  }
+
+  .film-tab-content {
+    padding: 10px 20px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .card-film img,
+  .card-actor img {
+    height: 160px;
+  }
+
+  .card-film span,
+  .card-actor span {
+    font-size: 0.75rem;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 350px) {
+  .film-layout {
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 16px;
+    gap: 24px;
+  }
+
+  .poster {
+    width: 120px;
+  }
+
+  .info-wrap h1 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .tags {
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  .overview {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    margin: 10px 0 18px;
+    text-align: center;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .btn-play,
+  #btn-watchlist {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+
+  .tab {
+    font-size: 0.7rem;
+  }
+
+  .film-tab-content {
+    padding: 10px 16px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .card-film img,
+  .card-actor img {
+    height: 140px;
+  }
+
+  .card-film span,
+  .card-actor span {
+    font-size: 0.7rem;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 330px) {
+  .film-layout {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    gap: 20px;
+  }
+
+  .poster {
+    width: 100px;
+  }
+
+  .info-wrap h1 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .tags {
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .tag {
+    font-size: 0.6rem;
+    padding: 2px 5px;
+  }
+
+  .overview {
+    font-size: 0.7rem;
+    line-height: 1.3;
+    margin: 8px 0 16px;
+    text-align: center;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .btn-play,
+  #btn-watchlist {
+    width: 100%;
+    font-size: 0.75rem;
+    padding: 8px 12px;
+  }
+
+  .tab {
+    font-size: 0.7rem;
+  }
+
+  .film-tab-content {
+    padding: 8px 12px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .card-film img,
+  .card-actor img {
+    height: 120px;
+  }
+
+  .card-film span,
+  .card-actor span {
+    font-size: 0.65rem;
+    padding: 5px;
+  }
+}

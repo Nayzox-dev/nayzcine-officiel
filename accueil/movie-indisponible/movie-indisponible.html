@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nayzcine — Contenu en maintenance</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --bg-2:#090b0e;
+      --fg:#f2f4f7;
+      --muted:#a9b0b8;
+      --panel:#0f1318;
+      --border:#1d232b;
+
+      --accent:#ef4444;     /* rouge vif */
+      --accent-2:#dc2626;   /* rouge soutenu */
+      --accent-3:#f87171;   /* rouge clair */
+
+      --glow:0 0 32px rgba(239,68,68,.35);
+      --radius:16px;
+      --blur:14px;
+      --container-max:920px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(239,68,68,.22), transparent 60%),
+        radial-gradient(1000px 700px at 110% 10%, rgba(220,38,38,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+    }
+
+    /* Grain */
+    .noise{
+      position:fixed; inset:0; pointer-events:none; opacity:.07; z-index:1;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.25'/></svg>");
+      mix-blend-mode:soft-light;
+    }
+
+    /* Blobs rouge */
+    .blob{
+      position:fixed; width:60vmax; height:60vmax; border-radius:50%;
+      filter:blur(60px); opacity:.22; pointer-events:none; z-index:1;
+      background: radial-gradient(circle at 30% 30%, var(--accent-3), transparent 60%);
+      animation: float 18s ease-in-out infinite;
+    }
+    .blob.b2{
+      background: radial-gradient(circle at 60% 40%, var(--accent-2), transparent 60%);
+      animation-duration: 22s; animation-delay: -4s;
+      transform: translate(40vw, 10vh);
+    }
+    .blob.b1{ transform: translate(-20vw, -10vh); }
+    @keyframes float{
+      0%,100%{ transform: translate(-20vw,-10vh) scale(1); }
+      50%{ transform: translate(-10vw,5vh) scale(1.08); }
+    }
+
+    /* Conteneur */
+    .wrap{
+      width:min(var(--container-max), calc(100% - 32px));
+      margin-inline:auto;
+      position:relative; z-index:2;
+      border-radius: calc(var(--radius) + 6px);
+      padding: clamp(18px, 2.8vw, 32px);
+    }
+
+    /* Bordure fixe rouge/orange (seule) */
+    .wrap::before{
+      content:"";
+      position:absolute; inset:0;
+      border-radius: inherit;
+      padding: 2px;
+      background: linear-gradient(120deg,
+        rgba(239,68,68,.85),
+        rgba(220,38,38,.55) 35%,
+        rgba(239,68,68,.85) 70%
+      );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      box-shadow: var(--glow);
+      pointer-events:none;
+      z-index:1;
+    }
+
+    /* Carte */
+    .card{
+      position:relative;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(16,19,24,.82), rgba(12,14,18,.78));
+      backdrop-filter: blur(var(--blur));
+      border:1px solid var(--border);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 12px 40px rgba(0,0,0,.45);
+      padding: clamp(18px, 2.2vw, 28px);
+      overflow:hidden;
+      z-index:3;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px -2px auto -2px; height:120px;
+      background: radial-gradient(1200px 120px at 50% 0%, rgba(239,68,68,.18), transparent 60%);
+      pointer-events:none;
+      animation: glowSweep 6s ease-in-out infinite;
+    }
+    @keyframes glowSweep{ 0%,100%{opacity:.35} 50%{opacity:.12} }
+
+    /* Header */
+    .top{ display:flex; align-items:center; gap:14px; margin-bottom:12px; }
+    .badge{
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(239,68,68,.45);
+      background: linear-gradient(180deg, rgba(239,68,68,.18), rgba(239,68,68,.08));
+      font-weight:700; color:#ffe1e1; text-transform:uppercase; font-size:.76rem;
+      backdrop-filter: blur(6px);
+    }
+    .pill{
+      padding:6px 10px; border-radius:999px; font-weight:700;
+      background: rgba(239,68,68,.12);
+      border:1px solid rgba(239,68,68,.28);
+      color:#ffd6d6;
+    }
+
+    h1{
+      margin:0; font-size: clamp(22px, 3.2vw, 34px); line-height:1.15;
+      font-weight:800; letter-spacing:.2px;
+      color:#ffffff;
+    }
+    @supports (-webkit-background-clip:text){
+      h1{
+        background: linear-gradient(92deg, #fff, #ffe1e1 35%, #ffd6d6 55%, #ffffff);
+        -webkit-background-clip:text; background-clip:text;
+        color:transparent; -webkit-text-fill-color:transparent;
+      }
+    }
+    .title-accent{
+      background: linear-gradient(90deg, var(--accent-3), #ffffff);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .subtitle{ margin:8px 0 0; color:var(--muted); font-size: clamp(14px, 1.6vw, 16px); }
+
+    /* Panel */
+    .panel{
+      margin-top:22px;
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(20,24,29,.72), rgba(12,14,18,.64));
+      border-radius: 14px; padding:16px;
+      display:flex; gap:16px; align-items:flex-start;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #ff9a9a, var(--accent));
+      box-shadow: 0 0 18px rgba(239,68,68,.8), 0 0 36px rgba(239,68,68,.35);
+      margin-top:6px;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse{ 0%,100%{transform:scale(1);opacity:.9} 50%{transform:scale(1.25);opacity:1} }
+    .panel h2{ margin:0 0 6px; font-size: clamp(16px, 2vw, 20px); }
+    .panel p{ margin:0; color:#e7ebf1; line-height:1.55 }
+
+    /* Actions */
+    .actions{ margin-top:24px; display:flex; gap:12px; flex-wrap:wrap; }
+    .btn{
+      position:relative; overflow:hidden; border:none; cursor:pointer;
+      padding:12px 18px; border-radius:12px; font-weight:800;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      color:#0b0d10; box-shadow: 0 10px 30px rgba(239,68,68,.35);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 16px 42px rgba(239,68,68,.45); filter:brightness(1.02) }
+    .btn:active{ transform: translateY(0) scale(.98) }
+
+    .btn.secondary{
+      background: none; color:#ffe1e1;
+      border:1px solid rgba(239,68,68,.45);
+      box-shadow: inset 0 0 0 1px rgba(239,68,68,.18);
+    }
+    .btn .shine{
+      position:absolute; inset:0;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 20%, rgba(255,255,255,.28) 45%, rgba(255,255,255,0) 70%);
+      transform: translateX(-120%);
+      pointer-events:none;
+    }
+    .btn:hover .shine{ animation: shine 1.4s ease }
+    @keyframes shine{ to{ transform: translateX(120%) } }
+
+    .foot{ margin-top:18px; color:#b8bfc7; font-size:12px; display:flex; align-items:center; gap:8px; opacity:.9 }
+
+    /* Responsive */
+    @media (max-width:600px){
+      .wrap{ padding:16px }
+      .card{ padding:16px; border-radius:14px }
+      h1{ font-size:22px }
+      .panel{ flex-direction:column; gap:10px }
+      .btn,.btn.secondary{ width:100%; justify-content:center }
+    }
+    @media (min-width:1200px){
+      h1{ font-size:36px }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .blob,.noise,.btn .shine{ animation:none }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+
+  <div class="wrap enter">
+    <div class="card">
+      <div class="top">
+        <span class="badge">Maintenance</span>
+        <span class="pill" id="dynTitle">Contenu</span>
+      </div>
+
+      <h1 id="ttl">
+        Le <span class="title-accent" id="mediaType">film/série</span> est
+        <span class="title-accent">temporairement indisponible</span>.
+      </h1>
+      <p class="subtitle" id="desc">
+        Intervention technique sur les sources. Merci de réessayer dans environ <strong>30 minutes</strong>.
+      </p>
+
+      <div class="panel">
+        <div class="dot" aria-hidden="true"></div>
+        <div>
+          <h2>Détails</h2>
+          <p>Les liens de lecture sont en cours de mise à jour ou de remplacement.
+             Vous pourrez reprendre votre lecture dès que le service sera rétabli.</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="retry">Réessayer <span class="shine"></span></button>
+        <button class="btn secondary" id="back">← Retour au catalogue</button>
+      </div>
+
+      <div class="foot">
+        <span>Statut :</span>
+        <span class="pill" id="statusPill">En cours d’intervention</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Injecter titre/type si dispo
+    (function(){
+      try{
+        const s = sessionStorage.getItem('nayzcine-current');
+        if(s){
+          const data = JSON.parse(s);
+          if(data && data.title) document.getElementById('dynTitle').textContent = data.title;
+          if(data && data.media_type){
+            document.getElementById('mediaType').textContent =
+              data.media_type === 'movie' ? 'film' :
+              (data.media_type === 'tv' ? 'série' : 'film/série');
+          }
+        }
+      }catch(_) {}
+    })();
+
+    // Navigation
+    document.getElementById('back').addEventListener('click', () => {
+      window.location.href = '/accueil/recherche/recherche.html';
+    });
+    document.getElementById('retry').addEventListener('click', () => {
+      history.back();
+    });
+  </script>
+</body>
+</html>
+
