@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nayzcine – Accès suspendu</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+    :root {
+      --bg: #0a0a0a;
+      --accent: #e50914; /* rouge Netflix-like */
+      --text: #f1f1f1;
+      --muted: #999;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      background-image: radial-gradient(circle at 20% 20%, rgba(229,9,20,0.15), transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(229,9,20,0.08), transparent 50%);
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 2rem 2.5rem;
+      background: rgba(20,20,20,0.9);
+      border-radius: 14px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.7);
+      animation: fadeIn 0.8s ease;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      letter-spacing: .5px;
+    }
+
+    p {
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 1.6rem;
+      border: none;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #b20710;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media(max-width: 480px) {
+      h1 { font-size: 1.6rem; }
+      p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Accès temporairement suspendu</h1>
+    <p>L’accès à ce film est momentanément indisponible.<br>
+       Merci de réessayer dans <strong>30 minutes</strong>.</p>
+    
+    <a href="/index.html" class="btn">Retour à l’accueil</a>
+  </div>
+</body>
+</html>
