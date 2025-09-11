@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nayzcine - Réinitialisation du mot de passe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/accueil/compte/resetpasword/resetpasword.css"/>
+</head>
+<body>
+  <form class="glass" id="resetForm" autocomplete="off">
+    <div class="logo" id="logoAnim">Nayzcine</div>
+    <div class="subtitle" id="subtitleAnim">Nouveau mot de passe</div>
+    <div class="error" id="errorMsg"></div>
+    <input type="password" class="input" id="newPassword" placeholder="Nouveau mot de passe" required autocomplete="new-password" minlength="6"/>
+    <input type="password" class="input" id="confirmPassword" placeholder="Confirmer le mot de passe" required autocomplete="new-password" minlength="6"/>
+    <button type="submit" class="btn">Confirmer</button>
+  </form>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script type="module" src="/accueil/compte/resetpasword/resetpasword.js" defer></script>
+</body>
+</html>

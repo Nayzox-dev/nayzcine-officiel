@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nayzcine - Inscription</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="/accueil/compte/incription/inscription.css" />
+</head>
+<body>
+  <form class="register-container glass" id="registerForm" autocomplete="off">
+    <div class="logo" id="logoAnim">
+      <a href="/index.html">Nayzcine</a>
+    </div>
+    <div class="error" id="errorMsg"></div>
+    <input type="text" class="input" id="username" placeholder="Pseudo" required autocomplete="username"/>
+    <input type="email" class="input" id="email" placeholder="Email" required autocomplete="email"/>
+    <input type="password" class="input" id="password" placeholder="Mot de passe" required autocomplete="new-password"/>
+    <input type="password" class="input" id="confirm" placeholder="Confirmer le mot de passe" required autocomplete="new-password"/>
+    <button type="submit" class="btn">Créer un compte</button>
+    <div class="login-link">Déjà inscrit ? <a href="/accueil/compte/connexion/connexion.html">Connexion</a></div>
+  </form>
+
+  <script type="module" src="/accueil/compte/incription/inscription.js"></script>
+</body>
+</html>

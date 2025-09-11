@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lecteur HLS – Reload total à la position</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    html,body {height:100%;margin:0;background:#000;display:flex;align-items:center;justify-content:center}
+    #video {max-width:90vw;max-height:90vh;background:#000}
+    #loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+      color:#fff;background:rgba(0,0,0,.8);font:16px/1.4 system-ui;opacity:0;pointer-events:none;transition:.15s}
+    #loader.show{opacity:1}
+  </style>
+</head>
+<body>
+  <div id="loader">Rechargement…</div>
+  <video id="video" controls playsinline></video>
+
+  <script>
+    const url = 'https://pulse.topstrime.online/movie/1175942/9504aw/master.m3u8';
+    const video  = document.getElementById('video');
+    const loader = document.getElementById('loader');
+
+    let hls = null;
+    let state = 'IDLE';              // 'IDLE' | 'RELOADING'
+    let internalSeek = false;        // ignore le seek déclenché par notre set currentTime
+    let lastReloadTs = 0;            // anti-spam (ms)
+    let lastStartPos = 0;
+
+    const show = on => loader.classList.toggle('show', !!on);
+
+    function hardResetVideoElement() {
+      // Vide complètement l'élément vidéo pour purger buffers & attaches
+      try { video.pause(); } catch {}
+      video.removeAttribute('src');
+      // Retire aussi l’attribut srcObject au cas où (pas utilisé ici mais safe)
+      try { video.srcObject = null; } catch {}
+      video.load(); // force un reset interne du tag <video>
+    }
+
+    function destroyHls() {
+      if (hls) {
+        try { hls.destroy(); } catch {}
+        hls = null;
+      }
+    }
+
+    function initHlsAt(startTime = 0) {
+      destroyHls();
+      hardResetVideoElement();
+
+      // Safari natif HLS
+      if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        show(true);
+        video.src = url;
+        internalSeek = true;
+        video.addEventListener('loadedmetadata', function onMeta() {
+          video.removeEventListener('loadedmetadata', onMeta);
+          video.currentTime = startTime;
+          video.play().catch(()=>{});
+          show(false);
+          state = 'IDLE';
+        });
+        return;
+      }
+
+      // Hls.js (Chrome/Edge/Firefox)
+      hls = new Hls({
+        lowLatencyMode: false,     // VOD
+        startPosition: startTime,  // démarre directement à la position demandée
+        maxBufferLength: 6,
+        maxMaxBufferLength: 12,
+        backBufferLength: 0,
+        enableWorker: true
+      });
+
+      state = 'RELOADING';
+      show(true);
+
+      hls.on(Hls.Events.ERROR, (_e, data) => {
+        console.error('HLS error', data);
+        // on évite les loops : on repasse en IDLE même en cas d’erreur réseau
+        state = 'IDLE';
+        show(false);
+      });
+
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+        hls.loadSource(url);
+      });
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        // on force la position pour être sûr (certains manifests ignorent startPosition)
+        internalSeek = true;
+        video.currentTime = startTime;
+        video.play().catch(()=>{});
+      });
+
+      // Dès qu’un fragment est effectivement bufferisé, on considère le reload terminé
+      hls.on(Hls.Events.FRAG_BUFFERED, () => {
+        show(false);
+        state = 'IDLE';
+      });
+
+      lastStartPos = startTime;
+    }
+
+    // Lancement initial
+    initHlsAt(0);
+
+    // === RELOAD TOTAL À CHAQUE SEEK UTILISATEUR ===
+    video.addEventListener('seeked', () => {
+      // Ignore notre propre seek (quand on replace la tête après parse)
+      if (internalSeek) { internalSeek = false; return; }
+
+      // Anti-spam : max 1 reload / 600ms
+      const now = Date.now();
+      if (now - lastReloadTs < 600) return;
+      lastReloadTs = now;
+
+      // si déjà en rechargement, on ne relance pas
+      if (state === 'RELOADING') return;
+
+      const pos = Math.max(0, Math.floor(video.currentTime)); // seconde entière
+      if (Math.abs(pos - lastStartPos) < 0.3) return;         // pas de reload si ~même place
+
+      initHlsAt(pos); // 🔥 détruit tout, refait l’appel .m3u8, repart à la bonne seconde
+    });
+  </script>
+</body>
+</html>
