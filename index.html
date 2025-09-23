@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nayzcine - Maintenance</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --red: #e63946;
+      --text: #f5f5f5;
+      --muted: #b3b3b3;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 20% 30%, rgba(230, 57, 70, 0.15), transparent 60%),
+                  radial-gradient(circle at 80% 20%, rgba(164, 22, 26, 0.2), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .card {
+      background: rgba(20, 20, 20, 0.85);
+      border: 1px solid rgba(230, 57, 70, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 12px 36px rgba(0,0,0,.7);
+      max-width: 650px;
+      width: 100%;
+      animation: fadeIn 1.2s ease;
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      margin-bottom: 1rem;
+      color: var(--red);
+      text-shadow: 0 0 15px rgba(230, 57, 70, 0.6);
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .date {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: var(--text);
+      font-size: clamp(1.1rem, 3vw, 1.3rem);
+    }
+
+    #countdown {
+      margin-top: 2rem;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-weight: 600;
+      color: var(--red);
+      text-shadow: 0 0 10px rgba(230, 57, 70, 0.6);
+      letter-spacing: 1px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===================== Responsive ===================== */
+    @media (max-width: 768px) {
+      .card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0.5rem;
+      }
+      .card {
+        padding: 1rem;
+        border-radius: 12px;
+      }
+      h1 {
+        margin-bottom: 0.8rem;
+      }
+      #countdown {
+        margin-top: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Maintenance en cours</h1>
+    <p>
+      Bonjour à tous,<br><br>
+      Nayzcine subit un changement de propriétaire.<br>
+      Le site sera en maintenance jusqu'au :
+    </p>
+    <p class="date">22 octobre</p>
+    <div id="countdown">Chargement...</div>
+    <p style="margin-top:1.5rem;">
+      Le site peut rouvrir avant cette date.<br>
+      Pour toute nouvelle date, elle sera affichée ici.
+    </p>
+    <p style="margin-top:1.5rem;">À bientôt 👋</p>
+  </div>
+
+  <script>
+    // Date cible : 22 octobre à minuit
+    const targetDate = new Date("2025-10-22T00:00:00");
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        document.getElementById("countdown").innerHTML = "✅ Maintenance terminée";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML =
+        `${days}j ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
