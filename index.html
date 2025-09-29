@@ -56,48 +56,20 @@
       line-height: 1.6;
     }
 
-    .date {
-      margin-top: 1.5rem;
-      font-weight: bold;
-      color: var(--text);
-      font-size: clamp(1.1rem, 3vw, 1.3rem);
-    }
-
-    #countdown {
-      margin-top: 2rem;
-      font-size: clamp(1.4rem, 5vw, 2rem);
-      font-weight: 600;
-      color: var(--red);
-      text-shadow: 0 0 10px rgba(230, 57, 70, 0.6);
-      letter-spacing: 1px;
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===================== Responsive ===================== */
+    /* Responsive */
     @media (max-width: 768px) {
-      .card {
-        padding: 1.5rem;
-      }
+      .card { padding: 1.5rem; }
     }
 
     @media (max-width: 480px) {
-      body {
-        padding: 0.5rem;
-      }
-      .card {
-        padding: 1rem;
-        border-radius: 12px;
-      }
-      h1 {
-        margin-bottom: 0.8rem;
-      }
-      #countdown {
-        margin-top: 1.2rem;
-      }
+      body { padding: 0.5rem; }
+      .card { padding: 1rem; border-radius: 12px; }
+      h1 { margin-bottom: 0.8rem; }
     }
   </style>
 </head>
@@ -106,42 +78,14 @@
     <h1>Maintenance en cours</h1>
     <p>
       Bonjour à tous,<br><br>
-      Nayzcine subit un changement de propriétaire.<br>
-      Le site sera en maintenance jusqu'au :
+      Un problème technique important affecte actuellement Nayzcine.<br>
+      Nous travaillons dessus mais la maintenance risque de durer plus longtemps que prévu.
     </p>
-    <p class="date">22 octobre</p>
-    <div id="countdown">Chargement...</div>
     <p style="margin-top:1.5rem;">
-      Le site peut rouvrir avant cette date.<br>
-      Pour toute nouvelle date, elle sera affichée ici.
+      Merci pour votre patience et votre soutien 🙏<br>
+      Nous reviendrons en ligne dès que possible, mais cela peut prendre du temps.
     </p>
-    <p style="margin-top:1.5rem;">À bientôt 👋</p>
+    <p style="margin-top:1.5rem;">À très bientôt 👋</p>
   </div>
-
-  <script>
-    // Date cible : 22 octobre à minuit
-    const targetDate = new Date("2025-10-22T00:00:00");
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance <= 0) {
-        document.getElementById("countdown").innerHTML = "✅ Maintenance terminée";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById("countdown").innerHTML =
-        `${days}j ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
 </body>
 </html>
